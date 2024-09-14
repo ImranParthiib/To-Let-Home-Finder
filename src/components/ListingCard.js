@@ -26,7 +26,7 @@ export default function ListingCard({ listing, isAdmin, onUpdate, onDelete }) {
 
   return (
     <div className="border p-4 rounded shadow-md hover:shadow-lg transition-shadow">
-      <h3 className="font-bold text-lg mb-2">{listing.title}</h3>
+      <h3 className=" text-slate-00 font-bold text-lg mb-2">{listing.title}</h3>
       <p className="text-gray-600 mb-2">Location: {listing.location}</p>
       <p className="text-green-600 font-semibold mb-2">Price: ${listing.price}/month</p>
       <p className="text-sm text-gray-500 mb-2">{listing.propertyType} | {listing.bedrooms} bed | {listing.bathrooms} bath</p>
