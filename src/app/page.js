@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import NewListingForm from "../components/NewListingForm";
 import SearchForm from "../components/SearchForm";
 import ListingCard from "../components/ListingCard";
 import AuthModal from "../components/AuthModal";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 // Function to generate sample listings
 const generateSampleListings = (count) => {
@@ -104,7 +104,9 @@ export default function Home() {
         listing.location
           .toLowerCase()
           .includes(searchCriteria.location.toLowerCase()) &&
-        listing.price <= searchCriteria.maxPrice &&
+        (searchCriteria.maxPrice
+          ? listing.price <= searchCriteria.maxPrice
+          : true) &&
         (searchCriteria.propertyType
           ? listing.propertyType === searchCriteria.propertyType
           : true) &&
@@ -153,97 +155,14 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col font-[family-name:var(--font-geist-sans)] bg-gray-50">
-      <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-2 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center">
-          <motion.div
-            className="flex items-center space-x-2"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Image
-              src="/to-let-icon.png"
-              alt="To Let Icon"
-              width={40}  
-              height={40}  
-              className="rounded-full bg-white p-1 shadow-md"
-            />
-            <h1 className="text-3xl font-bold">
-              {" "}
-              <span className="text-yellow-400">To</span>
-              <span className="text-white"> Let</span>
-            </h1>
-          </motion.div>
-          <nav className="hidden md:block">
-            <ul className="flex space-x-6">
-              {" "}
-              <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href="/"
-                  className="hover:text-yellow-300 transition-colors text-lg"
-                >
-                  Home
-                </Link>
-              </motion.li>
-              <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href="/search"
-                  className="hover:text-yellow-300 transition-colors text-lg"
-                >
-                  Search
-                </Link>
-              </motion.li>
-              {isAuthenticated && (
-                <motion.li
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <button
-                    onClick={() => setShowNewListingForm(true)}
-                    className="hover:text-yellow-300 transition-colors text-lg"
-                  >
-                    Post a Listing
-                  </button>
-                </motion.li>
-              )}
-              <motion.li whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href="/about"
-                  className="hover:text-yellow-300 transition-colors text-lg"
-                >
-                  About
-                </Link>
-              </motion.li>
-            </ul>
-          </nav>
-          <div className="flex items-center space-x-4">
-            {isAuthenticated ? (
-              <>
-                <span className="hidden sm:inline text-lg">
-                  Welcome, {user.name}
-                </span>
-                <motion.button
-                  onClick={handleLogout}
-                  className="bg-white text-blue-600 px-4 py-1 rounded-full hover:bg-yellow-300 hover:text-blue-800 transition-colors shadow-md"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Logout
-                </motion.button>
-              </>
-            ) : (
-              <motion.button
-                onClick={() => setShowAuthModal(true)}
-                className="bg-yellow-300 text-blue-800 px-4 py-1 rounded-full hover:bg-white hover:text-blue-600 transition-colors shadow-md"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Login/Register
-              </motion.button>
-            )}
-          </div>
-        </div>
-      </header>
+      <Header
+        isAuthenticated={isAuthenticated}
+        user={user}
+        isAdmin={isAdmin}
+        onLogout={handleLogout}
+        onShowNewListingForm={() => setShowNewListingForm(true)}
+        onShowAuthModal={() => setShowAuthModal(true)}
+      />
 
       <main className="flex-grow container mx-auto p-8">
         <motion.section
@@ -296,74 +215,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="bg-gray-800 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="font-bold text-lg mb-4">About Us</h3>
-              <p className="text-gray-300">
-                To Let Home Finder helps you find and list rental properties
-                easily.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    href="/terms"
-                    className="hover:text-yellow-300 transition-colors"
-                  >
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/privacy"
-                    className="hover:text-yellow-300 transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="hover:text-yellow-300 transition-colors"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-bold text-lg mb-4">Connect With Us</h3>
-              <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  Facebook
-                </a>
-                <a
-                  href="#"
-                  className="text-blue-400 hover:text-blue-300 transition-colors"
-                >
-                  Twitter
-                </a>
-                <a
-                  href="#"
-                  className="text-pink-400 hover:text-pink-300 transition-colors"
-                >
-                  Instagram
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-            © 2023 To Let Home Finder. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {showAuthModal && (
         <AuthModal
