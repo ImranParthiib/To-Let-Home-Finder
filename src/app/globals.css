@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -24,4 +26,34 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.font-lobster {
+  font-family: "Lobster", cursive;
+}
+
+
+
+/* using Custom Fonts */
+
+@font-face {
+  font-family: 'GeistVF';
+  src: url('/src/app/fonts/GeistVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GeistMonoVF';
+  src: url('/src/app/fonts/GeistMonoVF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-geist {
+  font-family: 'GeistVF', sans-serif;
+}
+
+.font-geist-mono {
+  font-family: 'GeistMonoVF', monospace;
 }

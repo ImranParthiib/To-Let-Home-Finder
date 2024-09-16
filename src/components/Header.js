@@ -22,11 +22,11 @@ export default function Header({
           <Image
             src="/to-let-icon.png"
             alt="To Let Icon"
-            width={40}
-            height={40}
-            className="rounded-full p-1 bg-amber-400 shadow-md"
+            width={50}
+            height={50}
+            className="rounded-full p-1 bg-teal-400 shadow-md"
           />
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold font-lobster">
             <span className="text-yellow-400">To</span>
             <span className="text-white"> Let</span>
           </h1>
