@@ -66,7 +66,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-          © 2023 To Let Home Finder. All rights reserved.
+          © {new Date().getFullYear() } To Let Home Finder. All rights reserved.
         </div>
       </div>
     </footer>
